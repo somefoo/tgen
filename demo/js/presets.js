@@ -13,7 +13,7 @@ $(document).ready(function () {
     $(selector).append(images);
   };
 
-  var seed = 7742101;
+  var seed = 424242;
 
   for (var name in tgen.presets) {
     var preset = tgen.presets[name];

@@ -253,7 +253,7 @@ $(document).ready(function () {
               item.id +
               "</span></span>"
           );
-          img.appendTo("#gallery .images");
+          //img.appendTo("#gallery .images");
         }
       },
       false: function () {
@@ -290,7 +290,8 @@ $(document).ready(function () {
 
   var generate = function () {
     if ($("body").hasClass("rendering")) {
-      return;
+      //console.log("Already running")
+      //return;
     }
 
     $("body").addClass("rendering");
@@ -334,6 +335,7 @@ $(document).ready(function () {
 
           params = texture.params();
 
+          var img_outside = $("<img>");
           for (var key in phases) {
             var img = $("<img>");
             var container = $("<span>");
@@ -341,7 +343,11 @@ $(document).ready(function () {
             img.attr("params", JSON.stringify(params));
             img.appendTo(container);
             container.appendTo(".phases");
+            var img_outside = img;
           }
+          // Store the last image (combination of all images)
+          img_outside.appendTo("#gallery .images");
+          console.log("Stored image!");
 
           message("");
         });
@@ -737,7 +743,7 @@ $(document).ready(function () {
     },
   };
 
-  var preset_id = "waves-cool";
+  var preset_id = "random";
 
   if (urlparams.preset) {
     if (presets.indexOf(urlparams.preset) >= 0) {
@@ -747,7 +753,10 @@ $(document).ready(function () {
 
   $("#presets").val(preset_id);
   paramsToEditor(preset_id);
-  generate();
+  for (let i = 0; i < 10; i++) {
+    console.log("Done with: ", i)
+    generate();
+  }
 
   if (urlparams["3d"]) {
     $(".3d").trigger("click");

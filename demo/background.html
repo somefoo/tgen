@@ -14,20 +14,52 @@
     ></script>
   </head>
 
+  <div id="theDiv"></div>
+
   <body>
     <script>
-      var generator = tgen.init(256, 256);
-      var texture = generator.render({
-        preset: {
-          name: "waves-cool",
-          seed: null,
-        },
-      });
+			const sleep = ms => new Promise(res => setTimeout(res, ms));
 
-      $("body").css(
-        "background-image",
-        "url(" + texture.toCanvas().toDataURL("image/png") + ")"
-      );
+      var generator = tgen.init(512,512);
+			(async () => {
+      for (let i = 0; i < 100; i++) {
+        var texture = generator.render({
+          preset: {
+            name: "random",
+            seed: null,
+          },
+        });
+
+       // var img = document.createElement('img');
+       // img.src = 'https://i.stack.imgur.com/RQ3Id.png';
+       // document.getElementById('gamediv').appendChild(img)
+        
+        $('<img/>')
+        .attr('src', texture.toCanvas().toDataURL("image/png"))
+        .appendTo('#theDiv');
+
+				//var canvas = document.getElementById('canvas');
+				await sleep(1);
+        //texture.toCanvas().toBlob(function(blob){
+        //    var newImg = document.createElement('img'), url = URL.createObjectURL(blob);
+				//		newImg.onload = function() {
+				//			// no longer need to read the blob so it's revoked
+				//			URL.revokeObjectURL(url);
+				//		};
+				//		newImg.src = url;
+				//		document.body.appendChild(newImg);
+
+
+        //});
+
+
+      }
+			})();
+
+     // $("body").css(
+     //   "background-image",
+     //   "url(" + texture.toCanvas().toDataURL("image/png") + ")"
+     // );
     </script>
   </body>
 </html>
